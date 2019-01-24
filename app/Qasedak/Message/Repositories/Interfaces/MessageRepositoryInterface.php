@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Qasedak\Repositories\Interfaces;
+namespace App\Qasedak\Message\Repositories\Interfaces;
 
 use App\Qasedak\Message;
 use Illuminate\Http\Request;
@@ -30,4 +30,6 @@ Interface MessageRepositoryInterface extends BaseRepositoryInterface
     public function deleteMessage() : bool;
 
     public function getUsersByUrl();
+
+    public function ajax($val, $isStar, $order = 'created_at DESC') : Builder;
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Qasedak\Repositories;
+namespace App\Qasedak\Message\Repositories;
 
 use App\User;
 use App\Qasedak\Message;
@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Qasedak\Exceptions\MessageNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Qasedak\Exceptions\MessageInvalidArgumentException;
-use App\Qasedak\Repositories\Interfaces\MessageRepositoryInterface;
+use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageRepository extends BaseRepository implements MessageRepositoryInterface
 {
@@ -169,7 +169,7 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
     public function indexAll(string $user_id = 'user_id', string $orderBy = 'created_at', string $sortBy = 'DESC')
     {
         $user = Auth::id();
-        return $this->model->where($user_id, $user)->orderBy($orderBy, $sortBy);
+        return $this->model->where($user_id, $user)->orderBy($orderBy, $sortBy)->with('user');
     }
 
     /**
@@ -211,10 +211,33 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
      */
     public function indexAllDeleted ()
     {
-        return Message::onlyTrashed()->where(function ($query) {
+        return $this->model->onlyTrashed()->where(function ($query) {
             $user =  Auth::id();
             $query->where('user_id', $user)
                 ->orWhere('author', $user);
-        });
+        })->with('user');
+    }
+
+    /**
+     * @param $isStar
+     * @return Builder
+     */
+    public function ajax ($val, $isStar, $order = 'created_at DESC'): Builder
+    {
+        return $this->model->where($val ,$isStar)
+            ->where($this->ajaxCallback())
+            ->orderByRaw($order);
+    }
+
+    /**
+     * @return \Closure
+     */
+    protected function ajaxCallback (): \Closure
+    {
+        return function ($query) {
+            $user = Auth::id();
+            $query->where('user_id', $user)
+                ->orWhere('author', $user);
+        };
     }
 }

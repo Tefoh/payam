@@ -7,7 +7,6 @@
                 stared: null,
                 starClass: [],
                 labels: '',
-                important: 'important',
                 labelClass: ''
             }
         },
