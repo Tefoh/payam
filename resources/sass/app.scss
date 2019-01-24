@@ -1,0 +1,34 @@
+
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+//@import 'variables';
+
+// Bootstrap
+//@import '~bootstrap-sass/assets/stylesheets/bootstrap-sprockets';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap';
+
+// fonts
+@import "fonts";
+// font awesome
+@import "~font-awesome/scss/font-awesome";
+
+// nano scroller
+@import "~nanoscroller/bin/css/nanoscroller";
+
+// jquery ui
+@import "~jquery-ui/themes/base/all.css";
+
+// bootstrap token field
+@import "~bootstrap-tokenfield/dist/css/bootstrap-tokenfield.css";
+
+// theme styles
+// @import "theme_styles";
+@import "style";
+@import "overrides";
+
+//.navbar-laravel {
+//  background-color: #fff;
+//  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+//}
