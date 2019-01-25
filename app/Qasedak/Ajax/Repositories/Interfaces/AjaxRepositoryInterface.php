@@ -13,17 +13,17 @@ interface AjaxRepositoryInterface
 
     public function fetch (string $query): JsonResponse;
 
-    public function starMessage ($id, $isStar);
+    public function starMessage (int $id, int $isStar);
 
-    public function label (Request $request, $data);
+    public function label (Request $request, string $label);
 
-    public function readMessage ($data);
+    public function readMessage (array $data);
 
-    public function unreadMessage ($data);
+    public function unreadMessage (array $data);
 
-    public function softDeleteMessage ($data);
+    public function softDeleteMessage (array $data);
 
-    public function deleteMessage ($data);
+    public function deleteMessage (array $data);
 
-    public function undoMessage ($data);
+    public function undoMessage (array $data);
 }

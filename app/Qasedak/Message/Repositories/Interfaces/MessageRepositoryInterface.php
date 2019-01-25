@@ -31,5 +31,7 @@ Interface MessageRepositoryInterface extends BaseRepositoryInterface
 
     public function getUsersByUrl();
 
+    public function getAllUsers() : array;
+
     public function ajax($val, $isStar, $order = 'created_at DESC') : Builder;
 }

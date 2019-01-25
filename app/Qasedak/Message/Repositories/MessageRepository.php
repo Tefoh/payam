@@ -17,15 +17,17 @@ use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageRepository extends BaseRepository implements MessageRepositoryInterface
 {
+    protected $userModel;
     /**
      * MessageRepository constructor.
      *
      * @param Message $message
      */
-    public function __construct (Message $message)
+    public function __construct (Message $message, User $user)
     {
         parent::__construct($message);
         $this->model = $message;
+        $this->userModel = $user;
     }
 
     /**
@@ -80,16 +82,15 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
      */
     public function createMessageByUsers (Request $request): bool
     {
-
         $users = $this->splitUsers($request);
 
         foreach ($users as $user)
         {
-            if (is_object(User::where('username',$user)->first())){
+            if (is_object($this->userModel->where('username',$user)->first())){
                 $this->createMessage([
                     'title'     => $request->title,
                     'body'      => $request->body,
-                    'user_id'   => User::where('username',$user)-> first()->id,
+                    'user_id'   => $this->userModel->where('username',$user)-> first()->id,
                     'author'    => Auth::id(),
                 ]);
             } else {
@@ -102,7 +103,7 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
 
     public function updateMessage (array $params): Message
     {
-        // TODO: Implement updateMessage() method.
+
     }
 
     /**
@@ -178,7 +179,7 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
      */
     public function splitUsers (Request $request): array
     {
-        $users = explode(', ', trim($request->username));
+        $users = explode(',', trim($request->username));
 
         foreach ($users as $id => $u) {
             $users[$id] = trim($u);
@@ -196,14 +197,21 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
     {
         if (isset($_GET['users'])){
             foreach ($_GET['users'] as $id => $user)
-                $senduser[$id] = User::find($user);
+                $senduser[$id] = $this->userModel->find($user);
         }elseif(isset($_GET['sender'])){
             foreach ($_GET['sender'] as $id => $user)
-                $senduser[$id] = User::find($user);
+                $senduser[$id] = $this->userModel->find($user);
         }else{
             $senduser = '';
         }
         return $senduser;
+    }
+
+
+    public function getAllUsers (): array
+    {
+        $users = $this->userModel->all()->pluck('username');
+        return $users->toArray();
     }
 
     /**
@@ -228,7 +236,6 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
             ->where($this->ajaxCallback())
             ->orderByRaw($order);
     }
-
     /**
      * @return \Closure
      */

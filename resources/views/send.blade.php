@@ -58,7 +58,13 @@
                         <div class="row form-group">
                             <label for="mailCc" class="col-md-2 email-send-label">ارسال :</label>
                             <div class="col-md-10">
-                                    <input  type="text" name="username" placeholder="نام کاربری" id="username" class="form-control token-input" value="@if($senduser != '' && is_array($senduser)) @foreach($senduser as $id => $user) @if($id == key(array_last($senduser))){{$user->username.','}}@else{{$user->username.', '}} @endif @endforeach @endif" autocomplete="off" autofocus />
+{{--
+                                <input  type="text" name="username" placeholder="نام کاربری" id="username" class="form-control token-input" value="@if($senduser != '' && is_array($senduser)) @foreach($senduser as $id => $user) @if($id == key(array_last($senduser))){{$user->username.','}}@else{{$user->username.', '}} @endif @endforeach @endif" autocomplete="off" autofocus />
+--}}
+                                <vue-multiselect v-model="value" :options="options" ></vue-multiselect>
+{{--
+                                <vuemultiselect name="username" id="username" v-model="value" :options="options" autofocus></vuemultiselect>
+--}}
                                 <div id="usernamelist">
 
                                 </div>
@@ -100,8 +106,8 @@
 
 
 @section('scripts')
+    @include('partials.autoComplete')
 
-    <script src="{{asset('js/bootstrap-tokenfield.js')}}"></script>
     <script type="text/javascript">
 
         /*$("#username").keyup(function () {
@@ -149,7 +155,7 @@
 
                 {{--});--}}
         {{--});--}}
-        var _token = $('input[name="_token"]').val();
+        /*var _token = $('input[name="_token"]').val();
         $('#username').tokenfield({
             autocomplete: {
                 source: function (request, response) {
@@ -164,7 +170,7 @@
                 delay: 100
             },
             showAutocompleteOnFocus: true
-        });
+        });*/
         {{--$("#username-tokenfield").keyup(function () {--}}
             {{--console.log("sss");--}}
 

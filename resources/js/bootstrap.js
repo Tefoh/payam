@@ -57,13 +57,22 @@ if (token) {
 
 
 // ***** add needed javascript files ***** //
-require('./partials/head');
-require('./partials/demo-rtl');
-require('jquery-ui');
-require('nanoscroller');
-require('bootstrap-tokenfield');
-require('./partials/demo');
-require('./partials/scripts');
-// require('./partials/pace');
-require('./script.js');
+window.Head = require('./partials/head');
+window.demortl = require('./partials/demo-rtl');
+window.jqueryUi = require('jquery-ui');
+window.nanoscroller = require('nanoscroller');
+window.demo = require('./partials/demo');
+window.scripts = require('./partials/scripts');
+window.VueMultiselect = require('vue-multiselect');
 
+// require('./partials/pace');
+window.script = require('./script.js');
+
+
+/*jQuery( document ).ready(function( $ ) {
+    window.tokenfield = require('bootstrap-tokenfield');
+});*/
+
+// register globally
+/*
+Vue.component('multiselect', Multiselect);*/

@@ -29,6 +29,9 @@
         "bootstrap-tokenfield": "^0.12.0",
         "font-awesome": "^4.7.0",
         "jquery-ui": "^1.12.1",
-        "nanoscroller": "^0.8.7"
+        "jquery.2": "^1.0.0",
+        "nanoscroller": "^0.8.7",
+        "tinymce": "^4.9.2",
+        "vue-multiselect": "^2.1.3"
     }
 }

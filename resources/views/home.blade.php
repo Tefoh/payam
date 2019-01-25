@@ -18,7 +18,8 @@
                 </div>
                 <div id="email-header-tools">
                     <div class="btn-group">
-                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle has-tooltip" type="button">
+                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle has-tooltip"
+                                type="button">
                             <i id="check-square" class="fa fa-square-o"></i> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu">
@@ -29,23 +30,27 @@
                         </ul>
                     </div>
                     <div class="btn-group">
-                        <button id="refresh" class="btn btn-primary" type="button" title="تازه کردن" data-toggle="tooltip" data-placement="bottom">
+                        <button id="refresh" class="btn btn-primary" type="button" title="تازه کردن"
+                                data-toggle="tooltip" data-placement="bottom">
                             <i class="fa fa-refresh"></i>
                         </button>
-                        <button id="spam" class="btn btn-primary" type="button" title="اسپم" data-toggle="tooltip" data-placement="bottom">
+                        <button id="spam" class="btn btn-primary" type="button" title="اسپم" data-toggle="tooltip"
+                                data-placement="bottom">
                             <i class="fa fa-exclamation-circle"></i>
                         </button>
-                        <button id="delete" class="btn btn-primary" type="button" title="پاک کردن" data-toggle="tooltip" data-placement="bottom">
+                        <button id="delete" class="btn btn-primary" type="button" title="پاک کردن" data-toggle="tooltip"
+                                data-placement="bottom">
                             <i class="fa fa-trash-o"></i>
                         </button>
                     </div>
                     <div class="btn-group">
-                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle has-tooltip" type="button" title="برچسب ها">
+                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle has-tooltip" type="button"
+                                title="برچسب ها">
                             <i class="fa fa-tag"></i> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li id="important">
-                                <a href="#" ><i class="fa fa-circle" style="color: #0080c0"></i> مهم</a>
+                                <a href="#"><i class="fa fa-circle" style="color: #0080c0"></i> مهم</a>
                             </li>
                             <li id="work">
                                 <a href="#"><i class="fa fa-circle green"></i>کاری</a>
@@ -71,8 +76,9 @@
     <div id="email-content" class="email-content-nano has-scrollbar" style="height: 246px;">
         <div class="email-content-nano-content" style="left: -17px; right: -17px;" tabindex="0">
             <ul id="email-list">
-@foreach($messages as $message)
-                    <li class="{{$message->is_read ? '' : 'unread'}} clickable-row" id="mail-{{$message->id}}" data-href="{{route('home.show', $message->id)}}">
+                @foreach($messages as $message)
+                    <li class="{{$message->is_read ? '' : 'unread'}} clickable-row" id="mail-{{$message->id}}"
+                        data-href="{{route('home.show', $message->id)}}">
                         <div class="chbox">
                             <div class="checkbox-nice">
                                 <input id="m-checkbox-{{$message->id}}" type="checkbox" value="{{$message->id}}">
@@ -91,200 +97,37 @@
                             <span class="body">{!! $message->body !!}</span>
                         </div>
                         <div class="meta-info">
-                            
+
                             <span class="date">{{$message->time()}}</span>
                         </div>
                     </li>
-@endforeach
+                @endforeach
             </ul>
             {{csrf_field()}}
         </div>
-        <div class="nano-pane" style="display: none;"><div class="nano-slider" style=" transform: translate(0px, 0px);"></div></div></div>
+        <div class="nano-pane" style="display: none;">
+            <div class="nano-slider" style=" transform: translate(0px, 0px);"></div>
+        </div>
+    </div>
 
 @endsection
 
 
 @section('scripts')
     <script>
-        var _token = $('input[name="_token"]').val();
-
-
-            $(".star").click(function () {
-                var query = $(this).attr("id");
-                var clicks = $(this).children().attr("class");
-                var _token = $('input[name="_token"]').val();
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                if (clicks == 'starred') {
-                    $.ajax({
-                        url: "{{route('stared')}}",
-                        method: "POST",
-                        data: {stared:query, _token:_token}
-                    })
-                } else {
-                    $.ajax({
-                        url: "{{route('star')}}",
-                        type: "POST",
-                        data: {star: query, _token:_token}
-                    });
-                }
+        @include('partials.ajax')
+        $(document).ready(function () {
+            $('#checkall').click(function () {
+                $('#email-list').find('input:checkbox').prop('checked', true);
+                $('#check-square').removeClass('fa-square-o').addClass('fa-check-square-o');
+            });
         });
-            $("#important").click(function(){
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    data: {important: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#label-'+checkboxs).children().html('مهم');
-                            $('#label-'+checkboxs).children().removeClass('label-warning').removeClass('label-success').removeClass('label-danger');
-                            $('#label-'+checkboxs).children().addClass('label-primary');
-
-                        })
-                    }
-                });
+        $(document).ready(function () {
+            $('#uncheckall').click(function () {
+                $('#email-list').find('input:checkbox').prop('checked', false);
+                $('#check-square').removeClass('fa-check-circle-o').addClass('fa-square-o');
             });
-            $("#work").click(function(){
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    data: {work: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#label-'+checkboxs).children().html('کاری');
-                            $('#label-'+checkboxs).children().removeClass('label-primary').removeClass('label-warning').removeClass('label-danger');
-                            $('#label-'+checkboxs).children().addClass('label-success');
-                        })
-                    }
-                });
-            });
-            $("#personal").click(function(){
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    dataType: 'html',
-                    data: {personal: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#label-'+checkboxs).children().html('شخصی');
-                            $('#label-'+checkboxs).children().removeClass('label-primary').removeClass('label-success').removeClass('label-warning');
-                            $('#label-'+checkboxs).children().addClass('label-danger');
-                        })
-                    }
-                });
-            });
-            $("#document").click(function(){
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    dataType: 'html',
-                    data: {document: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#label-'+checkboxs).children().html('سند');
-                            $('#label-'+checkboxs).children().removeClass('label-primary').removeClass('label-success').removeClass('label-danger');
-                            $('#label-'+checkboxs).children().addClass('label-warning');
-                        })
-                    }
-                });
-            });
-            $("#delete").click(function(){
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    dataType: 'html',
-                    data: {delete: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#mail-'+checkboxs).addClass('hidden');
-                        })
-                    }
-                });
-            });
-            $("#read").click(function(){
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    dataType: 'html',
-                    data: {read: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#mail-'+checkboxs).removeClass('unread');
-                        })
-                    }
-                });
-            });
-            $("#unread").click(function(){
-
-                var checkboxs = new Array();
-                $("input:checked").each(function () {
-                    checkboxs.push($(this).val());
-                });
-
-                $.ajax({
-                    url: "{{route('ajax')}}",
-                    type: "POST",
-                    dataType: 'html',
-                    data: {unread: checkboxs, _token:_token},
-                    success: function(){
-                        $(checkboxs).each(function (ch , checkboxs ) {
-                            $('#mail-'+checkboxs).addClass('unread');
-                        })
-                    }
-                });
-            });
-            $(document).ready(function() {
-                $('#checkall').click(function() {
-                    $('#email-list').find('input:checkbox').prop('checked', true);
-                    $('#check-square').removeClass('fa-square-o').addClass('fa-check-square-o');
-                });
-            });
-            $(document).ready(function() {
-                $('#uncheckall').click(function() {
-                    $('#email-list').find('input:checkbox').prop('checked', false);
-                    $('#check-square').removeClass('fa-check-circle-o').addClass('fa-square-o');
-                });
-            })
+        })
     </script>
 
 @endsection

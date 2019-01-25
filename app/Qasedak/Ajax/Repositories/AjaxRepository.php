@@ -39,7 +39,7 @@ class AjaxRepository extends BaseRepository implements AjaxRepositoryInterface
         return response()->json($output);
     }
 
-    public function starMessage ($id, $isStar)
+    public function starMessage (int $id, int $isStar)
     {
 
         $message = $this->model->find($id);
@@ -47,36 +47,36 @@ class AjaxRepository extends BaseRepository implements AjaxRepositoryInterface
         $message->save();
     }
 
-    public function label (Request $request, $data)
+    public function label (Request $request, string $label)
     {
-        $this->getLabel($request, $data);
+        $this->getLabel($request, $label);
     }
 
-    public function readMessage ($data)
+    public function readMessage (array $data)
     {
         $this->updateMessageByAjax($data, 'is_read',1);
     }
 
-    public function unreadMessage ($data)
+    public function unreadMessage (array $data)
     {
         $this->updateMessageByAjax($data, 'is_read',0);
     }
 
-    public function softDeleteMessage ($data)
+    public function softDeleteMessage (array $data)
     {
         foreach ($data as $label) {
             $this->model->find($label)->delete();
         }
     }
 
-    public function deleteMessage ($data)
+    public function deleteMessage (array $data)
     {
         foreach ($data as $drop) {
             $this->model->withTrashed()->find($drop)->forceDelete();
         }
     }
 
-    public function undoMessage ($data)
+    public function undoMessage (array $data)
     {
         foreach ($data as $undo) {
             $this->model->withTrashed()->find($undo)->restore();

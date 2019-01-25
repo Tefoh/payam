@@ -43,9 +43,10 @@ class MessageHomeController extends Controller
     public function create ()
     {
         $senduser = $this->messageRepo->getUsersByUrl();
+        $userList = $this->messageRepo->getAllUsers();
 //        $messages = $this->messageRepo->indexMessage();
 
-        return view('send', compact('senduser'));
+        return view('send', compact('senduser', 'userList'));
 
     }
 
