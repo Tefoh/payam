@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Message;
+use App\Qasedak\Message\Message;
 
 class ApiController extends Controller
 {

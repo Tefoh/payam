@@ -114,8 +114,8 @@
 
 
 @section('scripts')
+    @include('partials.ajax')
     <script>
-        @include('partials.ajax')
         $(document).ready(function () {
             $('#checkall').click(function () {
                 $('#email-list').find('input:checkbox').prop('checked', true);

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
 use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
@@ -42,12 +43,10 @@ class MessageHomeController extends Controller
      */
     public function create ()
     {
-        $senduser = $this->messageRepo->getUsersByUrl();
         $userList = $this->messageRepo->getAllUsers();
 //        $messages = $this->messageRepo->indexMessage();
 
-        return view('send', compact('senduser', 'userList'));
-
+        return view('message.send', compact( 'userList'));
     }
 
     /**
@@ -64,7 +63,6 @@ class MessageHomeController extends Controller
             return redirect()->back();
         }
         return redirect('home');
-
     }
 
     /**
@@ -82,8 +80,7 @@ class MessageHomeController extends Controller
         $params = $this->messageRepo->showMessage($id, $message);
         extract($params);
 
-        return view('show', compact('message', 'sender'));
-
+        return view('message.show', compact('message', 'sender'));
     }
 
     /**
@@ -106,7 +103,7 @@ class MessageHomeController extends Controller
         $list = $this->messageRepo->indexMessageByAuthor();
         $messages = $this->messageRepo->paginateBuilderResults($list);
 
-        return view('posted', compact('messages'));
+        return view('message.posted', compact('messages'));
     }
 
 
@@ -118,7 +115,17 @@ class MessageHomeController extends Controller
         $list = $this->messageRepo->indexDeletedMessage();
         $messages = $this->messageRepo->paginateBuilderResults($list);
 
-        return view('deleted', compact('messages'));
+        return view('message.deleted', compact('messages'));
+    }
+
+
+    public function getUsers(Request $request)
+    {
+        $usersGetByUrl = $this->messageRepo->getUsersByUrl($request);
+        $userList = $this->messageRepo->getAllUsers();
+//        $messages = $this->messageRepo->indexMessage();
+
+        return view('message.send', compact('usersGetByUrl', 'userList'));
     }
 
     /**

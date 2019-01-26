@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Qasedak\Message;
+use App\Qasedak\Message\Message;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class MessagePolicy
@@ -14,7 +14,7 @@ class MessagePolicy
      * Determine whether the user can view the message.
      *
      * @param  \App\User  $user
-     * @param  \App\Message  $message
+     * @param  \App\Qasedak\Message\Message  $message
      * @return mixed
      */
     public function view(User $user, Message $message)

@@ -1,6 +1,6 @@
 <?php
 
-use App\Qasedak\Message;
+use App\Qasedak\Message\Message;
 use App\User;
 use Illuminate\Database\Seeder;
 

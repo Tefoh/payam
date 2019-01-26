@@ -57,7 +57,8 @@
                         </div>
                         <div class="btns">
                             <div class="btn-group">
-                                <a class="btn btn-success" type="button" href="{{route('home.create').'?sender[]='.$sender->id}}">
+                                <a class="btn btn-success" type="button" href="{{route('home.create')}}" onclick="event.preventDefault();
+                                                     document.getElementById('get-users').submit();">
                                     <i class="fa fa-mail-reply"></i>
                                 </a>
                                 <button data-toggle="dropdown" class="btn btn-success dropdown-toggle" type="button">
@@ -65,9 +66,14 @@
                                 </button>
                                 <ul class="dropdown-menu">
                                     <li>
-                                        <a href="{{route('home.create').'?sender[]='.$sender->id}}">
+                                        <a href="{{route('home.getUsers')}}" onclick="event.preventDefault();
+                                                     document.getElementById('get-users').submit();">
                                             <i class="fa fa-mail-reply"></i> جواب
                                         </a>
+                                        <form id="get-users" action="{{route('home.getUsers')}}" method="POST" style="display: none;">
+                                            @csrf
+                                            <input type="hidden" name="users[]" value="{{ $sender->username }}">
+                                        </form>
                                     </li>
                                     <li>
                                         <a href="">

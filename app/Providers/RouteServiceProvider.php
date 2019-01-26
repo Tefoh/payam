@@ -16,6 +16,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected $namespace = 'App\Http\Controllers';
 
+    protected $frontNamespace = 'App\Http\Controllers\Front';
+
     /**
      * Define your route model bindings, pattern filters, etc.
      *
@@ -81,7 +83,7 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapAuthRoutes()
     {
         Route::middleware(['web' ,'auth'])
-             ->namespace($this->namespace)
+             ->namespace($this->frontNamespace)
              ->group(base_path('routes/auth.php'));
     }
 }

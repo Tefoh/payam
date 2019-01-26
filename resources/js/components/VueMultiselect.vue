@@ -24,10 +24,10 @@
     export default {
         // OR register locally
         components: { Multiselect },
-        props: ['options'],
+        props: ['options', 'value'],
         data () {
             return {
-                value: null,
+                value: this.value,
                 options: this.options
             }
         }

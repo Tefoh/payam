@@ -2,9 +2,9 @@
 <html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -25,12 +25,13 @@
         <header class="navbar" id="header-navbar">
             <div class="container">
                 <a href="{{route('home.index')}}" id="logo" class="navbar-brand">
-                    <img src="img/logo.png" alt="" class="normal-logo logo-white" />
-                    <img src="img/logo-black.png" alt="" class="normal-logo logo-black" />
-                    <img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden" />
+                    <img src="img/logo.png" alt="" class="normal-logo logo-white"/>
+                    <img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
+                    <img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
                 </a>
                 <div class="clearfix">
-                    <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+                    <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse"
+                            type="button">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="fa fa-bars"></span>
                     </button>
@@ -59,7 +60,8 @@
                                             {!! $message->body !!}
                                             </span>
                                             </span>
-                                                <span class="time"><i class="fa fa-clock-o"></i>{{$message->formatDifference()}}</span>
+                                                <span class="time"><i
+                                                            class="fa fa-clock-o"></i>{{$message->formatDifference()}}</span>
                                             </a>
                                         </li>
                                     @endforeach
@@ -84,20 +86,23 @@
                             </li>
                             <li class="dropdown profile-dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{route('home')}}/images/{{Auth::user()->profile_photo}}" alt="" />
+                                    <img src="{{route('home')}}/images/{{Auth::user()->profile_photo}}" alt=""/>
                                     <span class="hidden-xs">{{Auth::user()->name}}</span> <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="{{route('user.edit',Auth::id())}}"><i class="fa fa-user"></i>پروفایل</a></li>
+                                    <li><a href="{{route('user.edit',Auth::id())}}"><i
+                                                    class="fa fa-user"></i>پروفایل</a></li>
                                 </ul>
-                            </li><li>
+                            </li>
+                            <li>
                                 <a href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     <i class="fa fa-power-off"></i>
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     {{ csrf_field() }}
                                 </form>
                             </li>
@@ -119,9 +124,11 @@
                                 @yield('header')
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <div id="email-navigation" class="email-nav-nano hidden-xs hidden-sm has-scrollbar">
+                                        <div id="email-navigation"
+                                             class="email-nav-nano hidden-xs hidden-sm has-scrollbar">
                                             <div class="email-nav-nano-content" tabindex="0" style="right: -17px;">
-                                                <a href="{{route('home.create')}}" class="btn btn-success email-compose-btn">
+                                                <a href="{{route('home.create')}}"
+                                                   class="btn btn-success email-compose-btn">
                                                     <i class="fa fa-pencil-square-o"></i> ارسال پیام
                                                 </a>
                                                 <ul id="email-nav-items" class="clearfix">
@@ -155,8 +162,14 @@
                                                 </ul>
                                                 <div id="email-nav-labels-wrapper">
                                                     <div class="navbar-header email-nav-headline">
-                                                        <button type="button" class="btn btn-info" style="width: 183px;padding:6px 15px" data-toggle="collapse" data-target="#email-nav-labels" aria-expanded="false" aria-controls="collapse">
-                                                            <span style="float:right;">یرچسب ها</span><span id="collapsed" class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+                                                        <button type="button" class="btn btn-info"
+                                                                style="width: 183px;padding:6px 15px"
+                                                                data-toggle="collapse" data-target="#email-nav-labels"
+                                                                aria-expanded="false" aria-controls="collapse">
+                                                            <span style="float:right;">یرچسب ها</span><span
+                                                                    id="collapsed"
+                                                                    class="glyphicon glyphicon-collapse-down"
+                                                                    style="float:left;"></span>
                                                         </button>
                                                     </div>
                                                     <ul id="email-nav-labels" class="clearfix collapse">
@@ -187,20 +200,31 @@
                                                     </ul>
                                                 </div>
                                                 <div id="email-nav-friends-wrapper">
-                                                    <div class="navbar-header email-nav-headline" id="btn-friends-wrapper">
-                                                        <button type="button" class="btn btn-info" style="width: 183px" data-toggle="collapse" data-target="#email-friends-labels" aria-expanded="true" aria-controls="collapse">
-                                                            <span style="float:right;">ارسال سریع نامه </span><span id="collapsed" class="glyphicon glyphicon-collapse-down" style="float:left;"></span>
+                                                    <div class="navbar-header email-nav-headline"
+                                                         id="btn-friends-wrapper">
+                                                        <button type="button" class="btn btn-info" style="width: 183px"
+                                                                data-toggle="collapse"
+                                                                data-target="#email-friends-labels" aria-expanded="true"
+                                                                aria-controls="collapse">
+                                                            <span style="float:right;">ارسال سریع نامه </span><span
+                                                                    id="collapsed"
+                                                                    class="glyphicon glyphicon-collapse-down"
+                                                                    style="float:left;"></span>
                                                         </button>
                                                     </div>
 
-                                                    {!! Form::open(['method'=>'GET', 'action'=>'MessageHomeController@create']) !!}
-                                                    <ul id="email-friends-labels" class="clearfix collapse row" aria-expanded="true" style="">
+                                                    {!! Form::open(['method'=>'POST', 'action'=>'Front\MessageHomeController@getUsers']) !!}
+                                                    <ul id="email-friends-labels" class="clearfix collapse row"
+                                                        aria-expanded="true" style="">
                                                         {!! Form::submit('ارسال', ['class'=>'alert alert-success col-md-12']) !!}
                                                         @foreach($users as $user)
-                                                            {!! Form::checkbox('users[]', $user->id, false, ['class'=>'col-md-2']) !!}
-                                                            <a href="{{route('home.create').'?users[]='.$user->id}}">
+                                                            {!! Form::checkbox('users[]', $user->username, false, ['class'=>'col-md-2']) !!}
+                                                            <a>
                                                                 <li class="col-md-10">{{$user->name}}</li>
                                                             </a>
+                                                            {{--<a href="{{route('home.create').'?users[]='.$user->id}}">
+                                                                <li class="col-md-10">{{$user->name}}</li>
+                                                            </a>--}}
                                                         @endforeach
                                                     </ul>
                                                     {!! Form::close() !!}

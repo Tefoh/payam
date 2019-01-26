@@ -22,6 +22,8 @@ RouteMapperByArray(['star', 'stared', 'ajax'], 'AjaxAutocompleteController', [],
 
 
 Route::resource('/home', 'MessageHomeController', ['except' => ['edit', 'update', 'destroy']]);
+Route::post('/home/getUsers', 'MessageHomeController@getUsers')->name('home.getUsers');
+
 Route::resource('/user', 'UserController', ['except' => ['index', 'create', 'store', 'show']]);
 
 Route::any('files/{id}/{file}', 'FileController@getFile')->where('filename', '^[^/]+$');

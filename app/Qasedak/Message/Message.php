@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Qasedak;
-
+namespace App\Qasedak\Message;
 
 use App\File;
 use App\User;

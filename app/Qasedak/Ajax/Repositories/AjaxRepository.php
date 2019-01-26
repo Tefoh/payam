@@ -2,8 +2,8 @@
 namespace App\Qasedak\Ajax\Repositories;
 
 use App\User;
-use App\Qasedak\Message;
 use Illuminate\Http\Request;
+use App\Qasedak\Message\Message;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Collection;

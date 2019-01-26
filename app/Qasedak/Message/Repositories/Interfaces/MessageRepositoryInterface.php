@@ -2,8 +2,8 @@
 
 namespace App\Qasedak\Message\Repositories\Interfaces;
 
-use App\Qasedak\Message;
 use Illuminate\Http\Request;
+use App\Qasedak\Message\Message;
 use Illuminate\Database\Eloquent\Builder;
 use Jsdecena\Baserepo\BaseRepositoryInterface;
 
@@ -29,7 +29,7 @@ Interface MessageRepositoryInterface extends BaseRepositoryInterface
 
     public function deleteMessage() : bool;
 
-    public function getUsersByUrl();
+    public function getUsersByUrl(Request $request) : array;
 
     public function getAllUsers() : array;
 

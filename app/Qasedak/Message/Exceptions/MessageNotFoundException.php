@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Qasedak\Exceptions;
+namespace App\Qasedak\Message\Exceptions;
 
 class MessageNotFoundException extends \Exception
 {

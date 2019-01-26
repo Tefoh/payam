@@ -3,16 +3,16 @@
 namespace App\Qasedak\Message\Repositories;
 
 use App\User;
-use App\Qasedak\Message;
 use Illuminate\Http\Request;
+use App\Qasedak\Message\Message;
 use Illuminate\Support\Facades\Auth;
 use Jsdecena\Baserepo\BaseRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Database\Eloquent\Builder;
-use App\Qasedak\Exceptions\MessageNotFoundException;
+use App\Qasedak\Message\Exceptions\MessageNotFoundException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Qasedak\Exceptions\MessageInvalidArgumentException;
+use App\Qasedak\Message\Exceptions\MessageInvalidArgumentException;
 use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageRepository extends BaseRepository implements MessageRepositoryInterface
@@ -191,20 +191,13 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
     }
 
     /**
-     * @return array|string
+     * @param Request $request
+     * @return array
      */
-    public function getUsersByUrl()
+    public function getUsersByUrl(Request $request) : array
     {
-        if (isset($_GET['users'])){
-            foreach ($_GET['users'] as $id => $user)
-                $senduser[$id] = $this->userModel->find($user);
-        }elseif(isset($_GET['sender'])){
-            foreach ($_GET['sender'] as $id => $user)
-                $senduser[$id] = $this->userModel->find($user);
-        }else{
-            $senduser = '';
-        }
-        return $senduser;
+        $usersGetByUrl = (array) $request->users;
+        return $usersGetByUrl;
     }
 
 

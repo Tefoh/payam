@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Qasedak\Ajax\Repositories\Interfaces\AjaxRepositoryInterface;
 
@@ -28,7 +29,7 @@ class AjaxAutocompleteController extends Controller
     public function index ()
     {
         $users = $this->ajaxRepo->index();
-        return view('send', compact('users'));
+        return view('message.send', compact('users'));
     }
 
     /**

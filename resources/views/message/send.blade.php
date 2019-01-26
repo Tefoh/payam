@@ -53,7 +53,7 @@
                         <span class="alert alert-danger">{{ Session::get('user_not_found') }}</span>
                     @endif
                 </div>
-                {!! Form::open(['method'=>'POST', 'action'=> 'MessageHomeController@store', 'files'=>true, 'id'=>'sendmail'])  !!}
+                {!! Form::open(['method'=>'POST', 'action'=> 'Front\MessageHomeController@store', 'files'=>true, 'id'=>'sendmail'])  !!}
                     <div id="email-new-header">
                         <div class="row form-group">
                             <label for="mailCc" class="col-md-2 email-send-label">ارسال :</label>
@@ -61,7 +61,7 @@
 {{--
                                 <input  type="text" name="username" placeholder="نام کاربری" id="username" class="form-control token-input" value="@if($senduser != '' && is_array($senduser)) @foreach($senduser as $id => $user) @if($id == key(array_last($senduser))){{$user->username.','}}@else{{$user->username.', '}} @endif @endforeach @endif" autocomplete="off" autofocus />
 --}}
-                                <vue-multiselect v-model="value" :options="options" ></vue-multiselect>
+                                <vue-multiselect v-model="value" :options="options" :value="value"></vue-multiselect>
 {{--
                                 <vuemultiselect name="username" id="username" v-model="value" :options="options" autofocus></vuemultiselect>
 --}}

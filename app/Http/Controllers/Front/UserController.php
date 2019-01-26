@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use App\File;
+use App\Http\Controllers\Controller;
 use App\User;
-use App\Message;
+use App\Qasedak\Message\Message;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserEditRequest;
 
