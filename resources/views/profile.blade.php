@@ -7,7 +7,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading row" style="margin:0">
                         <h4 class="col-md-6 pull-left">ویرایش اطلاعات جدید</h4>
-                        {!! Form::model($user, ['method'=>'DELETE', 'action'=> ['UserController@destroy', $user->id],'class'=>'col-md-6 form-horizontal','id'=>'destroy-user']) !!}
+                        {!! Form::model($user, ['method'=>'DELETE', 'action'=> ['Front\UserController@destroy', $user->id],'class'=>'col-md-6 form-horizontal','id'=>'destroy-user']) !!}
 
                         <button class="btn btn-danger pull-right" onclick='return confirm("آیا مطمئن هستید میخواهید این حساب کاربری را پاک کنید؟")'>حذف حساب کاربری</button>
 
@@ -15,7 +15,7 @@
                     </div>
 
                     <div class="panel-body">
-                        {!! Form::model($user, ['method'=>'PATCH', 'action'=> ['UserController@update', $user->id], 'files'=>true,'class'=>'form-horizontal','id'=>'edit-user']) !!}
+                        {!! Form::model($user, ['method'=>'PATCH', 'action'=> ['Front\UserController@update', $user->id], 'files'=>true,'class'=>'form-horizontal','id'=>'edit-user']) !!}
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

@@ -2,7 +2,6 @@
 
 namespace App\Qasedak\Ajax\Repositories\Interfaces;
 
-
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;

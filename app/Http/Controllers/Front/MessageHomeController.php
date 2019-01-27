@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
+use App\Qasedak\Message\Traits\AjaxMessageTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
@@ -9,6 +10,8 @@ use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageHomeController extends Controller
 {
+    use AjaxMessageTrait;
+
     /**
      * @var MessageRepositoryInterface
      */
@@ -44,7 +47,6 @@ class MessageHomeController extends Controller
     public function create ()
     {
         $userList = $this->messageRepo->getAllUsers();
-//        $messages = $this->messageRepo->indexMessage();
 
         return view('message.send', compact( 'userList'));
     }
@@ -82,70 +84,4 @@ class MessageHomeController extends Controller
 
         return view('message.show', compact('message', 'sender'));
     }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function stared ()
-    {
-        $messages = $this->messageRepo->ajax('is_stared', 1);
-        $messages = $this->messageRepo->paginateBuilderResults($messages);
-
-        return view('home', compact('messages'));
-    }
-
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function posted ()
-    {
-        $list = $this->messageRepo->indexMessageByAuthor();
-        $messages = $this->messageRepo->paginateBuilderResults($list);
-
-        return view('message.posted', compact('messages'));
-    }
-
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function deleted ()
-    {
-        $list = $this->messageRepo->indexDeletedMessage();
-        $messages = $this->messageRepo->paginateBuilderResults($list);
-
-        return view('message.deleted', compact('messages'));
-    }
-
-
-    public function getUsers(Request $request)
-    {
-        $usersGetByUrl = $this->messageRepo->getUsersByUrl($request);
-        $userList = $this->messageRepo->getAllUsers();
-//        $messages = $this->messageRepo->indexMessage();
-
-        return view('message.send', compact('usersGetByUrl', 'userList'));
-    }
-
-    /**
-     * @param $label
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
-     */
-    public function label ($label)
-    {
-        switch ($label) {
-            case 'important':
-            case 'work':
-            case 'document':
-            case 'personal':
-                $messages = $this->messageRepo->ajax('label', $label);
-                $messages = $this->messageRepo->paginateBuilderResults($messages);
-                return view('home', compact('messages'));
-            default:
-                return redirect()->back();
-        }
-
-    }
-
 }

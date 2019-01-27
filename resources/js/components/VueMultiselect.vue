@@ -3,16 +3,18 @@
     <div>
         <multiselect
                 class="multiselect"
-                v-model="value"
-                :options="options"
+                v-model="selected"
+                :options="option"
                 :multiple="true"
                 id="username"
                 autofocus
                 placeholder="نام ها را وارد کنید"
                 selectLabel="برای انتخاب کلیک کنید"
                 deselectLabel="برای حذف کلیک کنید"
-                optionsLimit="10"
-        ></multiselect>
+                :optionsLimit="10"
+        >
+            <span slot="noResult">متاسفانه هیچ نتیجه ای یافت نشد.</span>
+        </multiselect>
         <input type="hidden" name="username" :value="value">
     </div>
 </template>
@@ -27,8 +29,9 @@
         props: ['options', 'value'],
         data () {
             return {
-                value: this.value,
-                options: this.options
+                selected: this.value,
+                option: this.options,
+                optionsLimit: 10
             }
         }
     }
@@ -48,5 +51,8 @@
     }
     .multiselect__tags {
         padding: 8px 8px 0 40px;
+    }
+    .multiselect__option--highlight {
+        text-align: left !important;
     }
 </style>

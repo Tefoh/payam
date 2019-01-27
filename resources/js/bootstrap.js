@@ -63,16 +63,5 @@ window.jqueryUi = require('jquery-ui');
 window.nanoscroller = require('nanoscroller');
 window.demo = require('./partials/demo');
 window.scripts = require('./partials/scripts');
-window.VueMultiselect = require('vue-multiselect');
+window.script = require('./script');
 
-// require('./partials/pace');
-window.script = require('./script.js');
-
-
-/*jQuery( document ).ready(function( $ ) {
-    window.tokenfield = require('bootstrap-tokenfield');
-});*/
-
-// register globally
-/*
-Vue.component('multiselect', Multiselect);*/

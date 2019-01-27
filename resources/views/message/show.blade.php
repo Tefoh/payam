@@ -56,6 +56,9 @@
                             {{$message->time()}} ({{$message->formatDifference()}})
                         </div>
                         <div class="btns">
+                            <button class="btn btn-info" onclick="printDiv('email-body')">
+                                <i class="fa fa-print"></i>
+                            </button>
                             <div class="btn-group">
                                 <a class="btn btn-success" type="button" href="{{route('home.create')}}" onclick="event.preventDefault();
                                                      document.getElementById('get-users').submit();">
@@ -157,5 +160,17 @@
 
     </script>
 
+    <script type="text/javascript">
+        function printDiv(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+        }
+    </script>
 
 @endsection

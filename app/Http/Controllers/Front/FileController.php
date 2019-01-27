@@ -2,19 +2,27 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\File;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Qasedak\File\Repositories\Interfaces\FileRepositoryInterface;
 
-class FileController extends Controller {
-    public function __construct()
+class FileController extends Controller
+{
+    /**
+     * @var FileRepositoryInterface
+     */
+    private $fileRepo;
+
+    public function __construct(FileRepositoryInterface $fileRepository)
     {
-        $this->middleware('auth');
+
+        $this->fileRepo = $fileRepository;
     }
-
-    public function getFile($filename)
+    /**
+     * @param $fileName
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function getFile($fileName)
     {
-        return response()->download(storage_path($filename), null, [], null);
+        return $this->fileRepo->getFile($fileName);
     }
 }

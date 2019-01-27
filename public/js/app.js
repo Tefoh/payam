@@ -1784,6 +1784,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   // OR register locally
@@ -1793,8 +1795,9 @@ __webpack_require__.r(__webpack_exports__);
   props: ['options', 'value'],
   data: function data() {
     return {
-      value: this.value,
-      options: this.options
+      selected: this.value,
+      option: this.options,
+      optionsLimit: 10
     };
   }
 });
@@ -4232,7 +4235,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.multiselect__placeholder {\n    float: right;\n}\n.multiselect__select {\n    position: relative;\n    float: left;\n    direction: ltr;\n}\n.multiselect__option {\n    text-align: right;\n}\n.multiselect__tags {\n    padding: 8px 8px 0 40px;\n}\n", ""]);
+exports.push([module.i, "\n.multiselect__placeholder {\n    float: right;\n}\n.multiselect__select {\n    position: relative;\n    float: left;\n    direction: ltr;\n}\n.multiselect__option {\n    text-align: right;\n}\n.multiselect__tags {\n    padding: 8px 8px 0 40px;\n}\n.multiselect__option--highlight {\n    text-align: left !important;\n}\n", ""]);
 
 // exports
 
@@ -37210,26 +37213,34 @@ var render = function() {
   return _c(
     "div",
     [
-      _c("multiselect", {
-        staticClass: "multiselect",
-        attrs: {
-          options: _vm.options,
-          multiple: true,
-          id: "username",
-          autofocus: "",
-          placeholder: "نام ها را وارد کنید",
-          selectLabel: "برای انتخاب کلیک کنید",
-          deselectLabel: "برای حذف کلیک کنید",
-          optionsLimit: "10"
-        },
-        model: {
-          value: _vm.value,
-          callback: function($$v) {
-            _vm.value = $$v
+      _c(
+        "multiselect",
+        {
+          staticClass: "multiselect",
+          attrs: {
+            options: _vm.option,
+            multiple: true,
+            id: "username",
+            autofocus: "",
+            placeholder: "نام ها را وارد کنید",
+            selectLabel: "برای انتخاب کلیک کنید",
+            deselectLabel: "برای حذف کلیک کنید",
+            optionsLimit: 10
           },
-          expression: "value"
-        }
-      }),
+          model: {
+            value: _vm.selected,
+            callback: function($$v) {
+              _vm.selected = $$v
+            },
+            expression: "selected"
+          }
+        },
+        [
+          _c("span", { attrs: { slot: "noResult" }, slot: "noResult" }, [
+            _vm._v("متاسفانه هیچ نتیجه ای یافت نشد.")
+          ])
+        ]
+      ),
       _vm._v(" "),
       _c("input", {
         attrs: { type: "hidden", name: "username" },
@@ -48527,6 +48538,7 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+window.VueMultiselect = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -48611,16 +48623,7 @@ window.jqueryUi = __webpack_require__(/*! jquery-ui */ "./node_modules/jquery-ui
 window.nanoscroller = __webpack_require__(/*! nanoscroller */ "./node_modules/nanoscroller/bin/javascripts/jquery.nanoscroller.js");
 window.demo = __webpack_require__(/*! ./partials/demo */ "./resources/js/partials/demo.js");
 window.scripts = __webpack_require__(/*! ./partials/scripts */ "./resources/js/partials/scripts.js");
-window.VueMultiselect = __webpack_require__(/*! vue-multiselect */ "./node_modules/vue-multiselect/dist/vue-multiselect.min.js"); // require('./partials/pace');
-
-window.script = __webpack_require__(/*! ./script.js */ "./resources/js/script.js");
-/*jQuery( document ).ready(function( $ ) {
-    window.tokenfield = require('bootstrap-tokenfield');
-});*/
-// register globally
-
-/*
-Vue.component('multiselect', Multiselect);*/
+window.script = __webpack_require__(/*! ./script */ "./resources/js/script.js");
 
 /***/ }),
 

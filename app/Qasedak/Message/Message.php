@@ -2,8 +2,8 @@
 
 namespace App\Qasedak\Message;
 
-use App\File;
 use App\User;
+use App\Qasedak\File\File;
 use Hekmatinasser\Verta\Verta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;

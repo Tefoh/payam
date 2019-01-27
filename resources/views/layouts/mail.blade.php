@@ -25,9 +25,9 @@
         <header class="navbar" id="header-navbar">
             <div class="container">
                 <a href="{{route('home.index')}}" id="logo" class="navbar-brand">
-                    <img src="img/logo.png" alt="" class="normal-logo logo-white"/>
-                    <img src="img/logo-black.png" alt="" class="normal-logo logo-black"/>
-                    <img src="img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
+                    <img src="{{asset('images/logo.png')}}" alt="" class="normal-logo logo-white"/>
+                    <img src="{{asset('images/logo-black.png')}}" alt="" class="normal-logo logo-black"/>
+                    <img src="{{asset('images/logo-small.png')}}" alt="" class="small-logo hidden-xs hidden-sm hidden"/>
                 </a>
                 <div class="clearfix">
                     <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse"
@@ -86,7 +86,7 @@
                             </li>
                             <li class="dropdown profile-dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <img src="{{route('home')}}/images/{{Auth::user()->profile_photo}}" alt=""/>
+                                    <img src="{{route('home')}}/images/{{Auth::user()->profile_photo ?? 'user.png'}}" alt=""/>
                                     <span class="hidden-xs">{{Auth::user()->name}}</span> <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-right">
