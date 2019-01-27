@@ -19,15 +19,11 @@ Interface MessageRepositoryInterface extends BaseRepositoryInterface
 
     public function createMessageByUsers(Request $request) : bool;
 
-    public function updateMessage(array $params) : Message;
-
     public function findMessageById(int $id) : Message;
 
     public function findMessageWithTrashedById(int $id) : Message;
 
     public function showMessage(int $id, Message $message) : array;
-
-    public function deleteMessage() : bool;
 
     public function getUsersByUrl(Request $request) : array;
 

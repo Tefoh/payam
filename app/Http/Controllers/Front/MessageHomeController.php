@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Front;
 
-use App\Qasedak\Message\Traits\AjaxMessageTrait;
+use App\Qasedak\Message\Traits\AjaxMessageControllerTrait;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageStoreRequest;
@@ -10,7 +10,7 @@ use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageHomeController extends Controller
 {
-    use AjaxMessageTrait;
+    use AjaxMessageControllerTrait;
 
     /**
      * @var MessageRepositoryInterface

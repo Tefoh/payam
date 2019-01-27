@@ -4,7 +4,7 @@ namespace App\Qasedak\Message\Traits;
 
 use Illuminate\Http\Request;
 
-trait AjaxMessageTrait
+trait AjaxMessageControllerTrait
 {
 
     /**

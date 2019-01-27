@@ -7,16 +7,18 @@ use Illuminate\Http\Request;
 use App\Qasedak\Message\Message;
 use Illuminate\Support\Facades\Auth;
 use Jsdecena\Baserepo\BaseRepository;
-use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Database\Eloquent\Builder;
-use App\Qasedak\Message\Exceptions\MessageNotFoundException;
+use App\Qasedak\Message\Traits\IndexMessagesTrait;
+use App\Qasedak\Message\Traits\AjaxMessageRepoTrait;
+use App\Qasedak\Message\Traits\MessageUsersRepoTrait;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use App\Qasedak\Message\Exceptions\MessageInvalidArgumentException;
+use App\Qasedak\Message\Exceptions\MessageNotFoundException;
 use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageRepository extends BaseRepository implements MessageRepositoryInterface
 {
+    use AjaxMessageRepoTrait, MessageUsersRepoTrait, IndexMessagesTrait;
+
     protected $userModel;
     /**
      * MessageRepository constructor.
@@ -30,41 +32,6 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
         $this->userModel = $user;
     }
 
-    /**
-     * @return Message
-     */
-    public function indexMessage () : Builder
-    {
-        try {
-            return $this->indexAll();
-        } catch (QueryException $e) {
-            throw new MessageInvalidArgumentException($e->getMessage());
-        }
-    }
-
-    /**
-     * @return Message
-     */
-    public function indexMessageByAuthor () : Builder
-    {
-        try {
-            return $this->indexAll('author');
-        } catch (QueryException $e) {
-            throw new MessageInvalidArgumentException($e->getMessage());
-        }
-    }
-
-    /**
-     * @return Message
-     */
-    public function indexDeletedMessage () : Builder
-    {
-        try {
-            return $this->indexAllDeleted();
-        } catch (QueryException $e) {
-            throw new MessageInvalidArgumentException($e->getMessage());
-        }
-    }
 
     /**
      * @param array $params
@@ -101,11 +68,6 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
         return true;
     }
 
-    public function updateMessage (array $params): Message
-    {
-
-    }
-
     /**
      * @param int $id
      * @return Message
@@ -137,107 +99,29 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
 
     /**
      * @param int $id
+     * @param Message $message
      * @return array
      * @throws MessageNotFoundException
      */
     public function showMessage (int $id, Message $message): array
     {
+        try {
+            $message->is_read = 1;
+            $message->save();
 
-        $message->is_read = 1;
-        $message->save();
-
-        $user = Auth::id();
-
-        if ($message->user_id == $user) {
-            $sender = $message->sender;
-        } elseif ($message->author == $user) {
-            $sender = $message->user;
-        }
-
-        return ['message' => $message, 'sender' => $sender];
-    }
-    public function deleteMessage (): bool
-    {
-        // TODO: Implement deleteMessage() method.
-    }
-
-    /**
-     * @param string $user_id
-     * @param string $orderBy
-     * @param string $sortBy
-     * @return mixed
-     */
-    public function indexAll(string $user_id = 'user_id', string $orderBy = 'created_at', string $sortBy = 'DESC')
-    {
-        $user = Auth::id();
-        return $this->model->where($user_id, $user)->orderBy($orderBy, $sortBy)->with('user');
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function splitUsers (Request $request): array
-    {
-        $users = explode(',', trim($request->username));
-
-        foreach ($users as $id => $u) {
-            $users[$id] = trim($u);
-        }
-        if (array_last($users)) {
-            $users[$id] = rtrim(trim($u), ',');
-        }
-        return $users;
-    }
-
-    /**
-     * @param Request $request
-     * @return array
-     */
-    public function getUsersByUrl(Request $request) : array
-    {
-        $usersGetByUrl = (array) $request->users;
-        return $usersGetByUrl;
-    }
-
-
-    public function getAllUsers (): array
-    {
-        $users = $this->userModel->all()->pluck('username');
-        return $users->toArray();
-    }
-
-    /**
-     * @return mixed
-     */
-    public function indexAllDeleted ()
-    {
-        return $this->model->onlyTrashed()->where(function ($query) {
-            $user =  Auth::id();
-            $query->where('user_id', $user)
-                ->orWhere('author', $user);
-        })->with('user');
-    }
-
-    /**
-     * @param $isStar
-     * @return Builder
-     */
-    public function ajax ($val, $isStar, $order = 'created_at DESC'): Builder
-    {
-        return $this->model->where($val ,$isStar)
-            ->where($this->ajaxCallback())
-            ->orderByRaw($order);
-    }
-    /**
-     * @return \Closure
-     */
-    protected function ajaxCallback (): \Closure
-    {
-        return function ($query) {
             $user = Auth::id();
-            $query->where('user_id', $user)
-                ->orWhere('author', $user);
-        };
+            $sender = '';
+            if ($message->user_id == $user) {
+                $sender = $message->sender;
+            } elseif ($message->author == $user) {
+                $sender = $message->user;
+            }
+
+            return ['message' => $message, 'sender' => $sender];
+        }catch (ModelNotFoundException $e ){
+            throw new MessageNotFoundException;
+        }
     }
+
+
 }

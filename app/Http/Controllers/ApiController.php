@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\Qasedak\Message\Message;
+use App\Qasedak\Api\Repositories\Interfaces\ApiRepositoryInterface;
 
 class ApiController extends Controller
 {
     /**
+     * @var ApiRepositoryInterface
+     */
+    private $apiRepo;
+
+    /**
      * Create a new AuthController instance.
      *
-     * @return void
+     * @param ApiRepositoryInterface $apiRepo
      */
-    public function __construct()
+    public function __construct(ApiRepositoryInterface $apiRepo)
     {
         $this->middleware('auth:api', ['except' => ['login']]);
+        $this->apiRepo = $apiRepo;
     }
 
     /**
@@ -26,14 +29,7 @@ class ApiController extends Controller
      */
     public function login()
     {
-        $credentials = request(['username', 'password']);
-
-
-        if (! $token = auth()->guard('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
-        return $this->respondWithToken($token);
+        return $this->apiRepo->login();
     }
 
     /**
@@ -43,20 +39,7 @@ class ApiController extends Controller
      */
     public function me()
     {
-        if (auth()->guard('api')->user()->profile_photo){
-            $profile = route('home').'/images/'.auth()->guard('api')->user()->profile_photo;
-        }else{
-            $profile = null;
-        }
-
-        $user['name'] = auth()->guard('api')->user()->name;
-        $user['username'] = auth()->guard('api')->user()->username;
-        $user['profile_photo'] = auth()->guard('api')->user()->profile_photo;
-        $user['created_at'] = auth()->guard('api')->user()->created_at;
-        $user['updated_at'] = auth()->guard('api')->user()->updated_at;
-        $user['profile'] = $profile;
-
-        return response()->json($user);
+        return $this->apiRepo->me();
     }
 
     /**
@@ -66,14 +49,7 @@ class ApiController extends Controller
      */
     public function messages()
     {
-        $messages = Message::whereUserId(auth()->guard('api')->user()->id)->whereIsRead(0)->get();
-        foreach ($messages as $message) {
-            $message->author = $message->sender->username;
-            $message->time = $message->formatDifference();
-        }
-
-        $messages = json_decode($messages);
-        return response()->json($messages);
+        return $this->apiRepo->message();
     }
 
     /**
@@ -83,9 +59,7 @@ class ApiController extends Controller
      */
     public function logout()
     {
-        auth()->guard('api')->logout();
-
-        return response()->json(['message' => 'Successfully logged out']);
+        return $this->apiRepo->logout();
     }
 
     /**
@@ -95,31 +69,7 @@ class ApiController extends Controller
      */
     public function refresh()
     {
-        return $this->respondWithToken(auth()->guard('api')->refresh());
+        return $this->apiRepo->refresh();
     }
 
-    /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    protected function respondWithToken($token)
-    {
-        if (auth()->guard('api')->user()->profile_photo){
-            $profile = route('home').'/images/'.auth()->guard('api')->user()->profile_photo;
-        }else{
-            $profile = null;
-        }
-        $message_unread = count(Message::whereUserId(auth()->guard('api')->user()->id)->whereIsRead(0)->get());
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->guard('api')->factory()->getTTL() * 60,
-            'messages_unread' => $message_unread,
-			'username' => auth()->guard('api')->user()->username,
-            'profile' => $profile
-        ]);
-    }
 }
