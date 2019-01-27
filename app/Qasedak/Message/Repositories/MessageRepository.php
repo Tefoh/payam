@@ -8,6 +8,7 @@ use App\Qasedak\Message\Message;
 use Illuminate\Support\Facades\Auth;
 use Jsdecena\Baserepo\BaseRepository;
 use Illuminate\Support\Facades\Session;
+use App\Qasedak\Message\Traits\ShowMessageTrait;
 use App\Qasedak\Message\Traits\IndexMessagesTrait;
 use App\Qasedak\Message\Traits\AjaxMessageRepoTrait;
 use App\Qasedak\Message\Traits\MessageUsersRepoTrait;
@@ -17,7 +18,7 @@ use App\Qasedak\Message\Repositories\Interfaces\MessageRepositoryInterface;
 
 class MessageRepository extends BaseRepository implements MessageRepositoryInterface
 {
-    use AjaxMessageRepoTrait, MessageUsersRepoTrait, IndexMessagesTrait;
+    use AjaxMessageRepoTrait, MessageUsersRepoTrait, IndexMessagesTrait, ShowMessageTrait;
 
     protected $userModel;
     /**
@@ -92,33 +93,6 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
         try {
             return $this->findOneOrFail($id);
         } catch (ModelNotFoundException $e) {
-            throw new MessageNotFoundException;
-        }
-    }
-
-
-    /**
-     * @param int $id
-     * @param Message $message
-     * @return array
-     * @throws MessageNotFoundException
-     */
-    public function showMessage (int $id, Message $message): array
-    {
-        try {
-            $message->is_read = 1;
-            $message->save();
-
-            $user = Auth::id();
-            $sender = '';
-            if ($message->user_id == $user) {
-                $sender = $message->sender;
-            } elseif ($message->author == $user) {
-                $sender = $message->user;
-            }
-
-            return ['message' => $message, 'sender' => $sender];
-        }catch (ModelNotFoundException $e ){
             throw new MessageNotFoundException;
         }
     }
