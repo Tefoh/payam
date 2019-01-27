@@ -64,4 +64,8 @@ window.nanoscroller = require('nanoscroller');
 window.demo = require('./partials/demo');
 window.scripts = require('./partials/scripts');
 window.script = require('./script');
+window.hamburgers = require('hamburgers');
+window.select2 = require('./partials/select2.min');
+window.tilt = require('./partials/tilt.jquery.min');
+window.main = require('./partials/main');
 

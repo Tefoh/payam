@@ -72,3 +72,18 @@ $(document).ready(function(){
         $("#collapsed").addClass('glyphicon-collapse-up').removeClass('glyphicon-collapse-down');
     });
 });
+
+/*===================================*
+ SHOW HIDE PASSWORD
+*===================================*/
+
+$(".toggle-password").on('click', function () {
+
+    $(this).toggleClass("fa-eye-disabled");
+    var input = $($(this).attr("data-toggle"));
+    if (input.attr("type") == "password") {
+        input.attr("type", "text");
+    } else {
+        input.attr("type", "password");
+    }
+});

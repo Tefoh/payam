@@ -31,6 +31,21 @@
 @import "style";
 @import "overrides";
 
+// animate
+@import "~animate.css/animate.css";
+
+// hamburgers
+@import "~hamburgers/_sass/hamburgers/hamburgers";
+
+// select2
+@import "select2.min";
+
+// main
+@import "main";
+
+// util
+@import "util";
+
 //.navbar-laravel {
 //  background-color: #fff;
 //  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);

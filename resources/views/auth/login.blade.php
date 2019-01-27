@@ -1,62 +1,59 @@
-@extends('layouts.app')
+@extends('layouts.user-form')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h3>وارد شدن</h3></div>
-
-                <div class="panel-body">
-                    <form class="form-inline " method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="mb-10">
-                            <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                <label for="username" class="col-md-4 sr-only">نام کاربری</label>
-                                <input id="username" type="text" class="form-control" name="username" placeholder="نام کاربری" value="{{ old('username') }}" required autofocus>
-                                @if ($errors->has('username'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 sr-only">رمز</label>
-                                <input id="password" type="password" class="form-control" name="password" placeholder="رمز عبور" required>
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> مرا به خاطر بسپار
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-12 ">
-                                <button type="submit" class="btn btn-primary">
-                                    ورود
-                                </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    رمز عبورتان را فراموش کرده اید؟
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="login100-pic js-tilt" data-tilt>
+        <img src="{{ asset('images/logo.png') }}" alt="IMG">
     </div>
-</div>
+
+    <form class="ogin100-form validate-form " method="POST" action="{{ route('login') }}">
+        @csrf
+        <span class="login100-form-title">
+            ورود کاربران
+        </span>
+
+        <div class="wrap-input100 validate-input" data-validate="نام کاربری خود را وارد کنید.">
+            <input id="username" type="text" class="input100" name="username" placeholder="نام کاربری"
+                   value="{{ old('username') }}" required autofocus>
+            @if ($errors->has('username'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('username') }}</strong>
+                </span>
+            @endif
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+                <i class="fa fa-envelope" aria-hidden="true"></i>
+            </span>
+        </div>
+
+        <div class="wrap-input100 validate-input" data-validate="Password is required">
+            <input id="password" type="password" class="input100" name="password" placeholder="رمز عبور" required>
+
+            @if ($errors->has('password'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+            @endif
+            <span class="focus-input100"></span>
+            <span class="symbol-input100">
+                <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+            <button class="show-pass" onclick="event.preventDefault();"><span data-toggle="#password" class="fa fa-eye toggle-password"></span></button>
+        </div>
+
+        <div class="container-login100-form-btn">
+            <button class="login100-form-btn">
+                Login
+            </button>
+        </div>
+
+        <div class="text-center p-t-12">
+            <span class="txt1">
+                قبلا ثبت نام نکرده اید؟
+            </span>
+            <a class="txt2" href="{{ route('register') }}">
+                حساب کاربری جدید بسازید
+            </a>
+        </div>
+
+    </form>
 @endsection
