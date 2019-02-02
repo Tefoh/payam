@@ -79,11 +79,28 @@ $(document).ready(function(){
 
 $(".toggle-password").on('click', function () {
 
-    $(this).toggleClass("fa-eye-disabled");
+    $(this).toggleClass("fa-eye-slash");
     var input = $($(this).attr("data-toggle"));
     if (input.attr("type") == "password") {
         input.attr("type", "text");
     } else {
         input.attr("type", "password");
     }
+});
+
+
+/*===================================*
+ check or uncheck all of checkboxes
+*===================================*/
+$(document).ready(function () {
+    $('#checkall').click(function () {
+        $('#email-list').find('input:checkbox').prop('checked', true);
+        $('#check-square').removeClass('fa-square-o').addClass('fa-check-square-o');
+    });
+});
+$(document).ready(function () {
+    $('#uncheckall').click(function () {
+        $('#email-list').find('input:checkbox').prop('checked', false);
+        $('#check-square').removeClass('fa-check-circle-o').addClass('fa-square-o');
+    });
 });

@@ -17,6 +17,7 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     protected $frontNamespace = 'App\Http\Controllers\Front';
+    protected $manageNamespace = 'App\Http\Controllers\Manage';
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -41,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAuthRoutes();
 
-        //
+        $this->mapManageRoutes();
     }
 
     /**
@@ -85,5 +86,21 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware(['web' ,'auth'])
              ->namespace($this->frontNamespace)
              ->group(base_path('routes/auth.php'));
+    }
+
+    /**
+     * Define the "auth" routes for the application.
+     *
+     * These routes all receive auth state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapManageRoutes()
+    {
+        Route::middleware(['web' ,'auth', 'superAdmin'])
+             ->prefix('manage')
+             ->as('manage.')
+             ->namespace($this->manageNamespace)
+             ->group(base_path('routes/manage.php'));
     }
 }

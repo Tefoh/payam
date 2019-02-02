@@ -13579,6 +13579,16 @@ button.close {
   }
 }
 
+/* b nazanin */
+
+@font-face {
+  font-family: "BNazanin";
+  font-style: normal;
+  font-weight: 400;
+  src: url(/fonts/BNazanin.eot?e28c82be11aa46138f606730de79cd3c);
+  src: url(/fonts/BNazanin.eot?e28c82be11aa46138f606730de79cd3c) format("embedded-opentype"), url(/fonts/BNazanin.woff2?4701f1b6cef4a4a5db91c0780f0ffc4a) format("woff2"), url(/fonts/BNazanin.woff?a366544bcbb6675c74b77e5533ebee51) format("woff"), url(/fonts/BNazanin.ttf?3671adca6f650c92b83f906e49656986) format("truetype");
+}
+
 /* iran sans*/
 
 @font-face {
@@ -17422,6 +17432,37 @@ body {
 
 .date {
   width: 70% !important;
+}
+
+.user {
+  position: absolute;
+}
+
+.author-messages {
+  padding-left: 0.5em;
+}
+
+.received-messages {
+  padding-right: 0.5em;
+  border-right: 2px solid #4f4f4f;
+}
+
+.user-created {
+  position: absolute;
+  left: 5em;
+}
+
+.delete-user {
+  position: absolute;
+  left: 0;
+  padding-left: 1em;
+  color: #e74949;
+}
+
+html,
+body {
+  font-family: "BNazanin", iransans, Arial, Helvetica, sans-serif !important;
+  -webkit-font-smoothing: antialiased;
 }
 
 .theme-whbl #header-navbar {

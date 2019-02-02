@@ -17,7 +17,7 @@
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
         "spatie/laravel-permission": "^2.29",
-        "tymon/jwt-auth": "^0.5.12",
+        "tymon/jwt-auth": "^1.0.0",
         "unisharp/laravel-filemanager": "~1.8"
     },
     "require-dev": {

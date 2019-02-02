@@ -26,4 +26,7 @@ Route::post('/home/getUsers', 'MessageHomeController@getUsers')->name('home.getU
 
 Route::resource('/user', 'UserController', ['except' => ['index', 'create', 'store', 'show']]);
 
-Route::any('files/{id}/{file}', 'FileController@getFile')->where('filename', '^[^/]+$');
+Route::group(['middleware' => 'fileAccessMiddleware'], function () {
+    Route::any('files/{user}/{file}', 'FileController@getFile')->where('filename', '^[^/]+$');
+    Route::any('photos/{user}/{file}', 'FileController@getFile')->where('filename', '^[^/]+$');
+});

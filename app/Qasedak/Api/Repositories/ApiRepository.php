@@ -48,7 +48,7 @@ class ApiRepository implements ApiRepositoryInterface
 
     public function message (): JsonResponse
     {
-        $messages = $this->model->whereUserId(auth()->guard('api')->user()->id)->whereIsRead(0)->get();
+        $messages = $this->model->whereUserId(auth()->guard('api')->user()->id)->get();
         foreach ($messages as $message) {
             $message->author = $message->sender->username;
             $message->time = $message->formatDifference();

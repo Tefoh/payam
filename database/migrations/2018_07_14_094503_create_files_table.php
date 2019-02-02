@@ -15,11 +15,9 @@ class CreateFilesTable extends Migration
     {
         Schema::create('files', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('message_id')->index();
+            $table->unsignedInteger('message_id');
             $table->string('path');
             $table->timestamps();
-
-            $table->foreign('message_id')->references('id')->on('messages')->onDelete('cascade');
         });
     }
 

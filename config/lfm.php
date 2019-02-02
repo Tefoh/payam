@@ -12,7 +12,7 @@ return [
 
     // Middlewares which should be applied to all package routes.
     // For laravel 5.1 and before, remove 'web' from the array.
-    'middlewares' => ['web', 'auth'],
+    'middlewares' => ['web', 'auth', 'fileAccessMiddleware'],
 
     // The url to this package. Change it if necessary.
     'url_prefix' => 'laravel-filemanager',
@@ -43,7 +43,7 @@ return [
 
     // Which folder to store files in project, fill in 'public', 'resources', 'storage' and so on.
     // You should create routes to serve images if it is not set to public.
-    'base_directory' => 'public',
+    'base_directory' => 'storage',
 
     'images_folder_name' => 'photos',
     'files_folder_name'  => 'files',
@@ -69,7 +69,7 @@ return [
     */
 
     // If true, the uploaded file will be renamed to uniqid() + file extension.
-    'rename_file' => false,
+    'rename_file' => true,
 
     // If rename_file set to false and this set to true, then non-alphanumeric characters in filename will be replaced.
     'alphanumeric_filename' => false,
@@ -109,10 +109,10 @@ return [
     'create_folder_mode' => 0755,
 
     // permissions to be set on file upload.
-    'create_file_mode' => 0644,
+    'create_file_mode' => 0633,
     
     // If true, it will attempt to chmod the file after upload
-    'should_change_file_mode' => true,
+    'should_change_file_mode' => 633,
 
     // available since v1.3.0
     // only when '/laravel-filemanager?type=Files'

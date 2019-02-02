@@ -14,11 +14,7 @@
 
         <div class="wrap-input100 validate-input" data-validate = "نام خود را وارد کنید.">
             <input id="name" type="text" class="input100" name="name" placeholder="نام" value="{{ old('name') }}" required autofocus>
-            @if ($errors->has('name'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('name') }}</strong>
-                </span>
-            @endif
+
             <span class="focus-input100"></span>
             <span class="symbol-input100">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -27,11 +23,7 @@
 
         <div class="wrap-input100 validate-input" data-validate = "نام کاربری خود را وارد کنید.">
             <input id="username" type="text" class="input100" name="username" placeholder="نام کاربری" value="{{ old('username') }}" required autofocus>
-            @if ($errors->has('username'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('username') }}</strong>
-                </span>
-            @endif
+
             <span class="focus-input100"></span>
             <span class="symbol-input100">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -40,11 +32,7 @@
 
         <div class="wrap-input100 validate-input" data-validate = "ادرس ایمیل خود را وارد کنید.">
             <input id="email" type="text" class="input100" name="email" placeholder="ایمیل" value="{{ old('email') }}" required autofocus>
-            @if ($errors->has('email'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('username') }}</strong>
-                </span>
-            @endif
+
             <span class="focus-input100"></span>
             <span class="symbol-input100">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
@@ -54,11 +42,6 @@
         <div class="wrap-input100 validate-input" data-validate = "Password is required">
             <input id="password" type="password" class="input100" name="password" placeholder="رمز عبور" required>
 
-            @if ($errors->has('password'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
             <span class="focus-input100"></span>
             <span class="symbol-input100">
                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -95,6 +78,26 @@
                 وارد شوید
             </a>
         </div>
+        @if ($errors->has('name'))
+            <span class="help-block alert alert-danger">
+                <strong>{{ $errors->first('name') }}</strong>
+            </span>
+        @endif
+        @if ($errors->has('username'))
+            <span class="help-block">
+                <strong>{{ $errors->first('username') }}</strong>
+            </span>
+        @endif
+        @if ($errors->has('email'))
+            <span class="help-block">
+                <strong>{{ $errors->first('username') }}</strong>
+            </span>
+        @endif
+        @if ($errors->has('password'))
+            <span class="help-block">
+                <strong>{{ $errors->first('password') }}</strong>
+            </span>
+        @endif
 
     </form>
 @endsection

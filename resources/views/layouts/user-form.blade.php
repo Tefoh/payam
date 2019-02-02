@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Login V1</title>
+    <title>{{ config('app.name', 'قاصدک') }}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
@@ -32,6 +32,9 @@
             position: absolute;
             margin-top: -2.4em;
             margin-left: 1em;
+        }
+        .help-block {
+            direction: rtl;
         }
     </style>
 </head>

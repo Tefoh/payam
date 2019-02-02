@@ -6,7 +6,6 @@
                 v-model="selected"
                 :options="option"
                 :multiple="true"
-                id="username"
                 autofocus
                 placeholder="نام ها را وارد کنید"
                 selectLabel="برای انتخاب کلیک کنید"
@@ -15,7 +14,7 @@
         >
             <span slot="noResult">متاسفانه هیچ نتیجه ای یافت نشد.</span>
         </multiselect>
-        <input type="hidden" name="username" :value="value">
+        <input type="hidden" name="username" :value="selected">
     </div>
 </template>
 

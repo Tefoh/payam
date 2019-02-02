@@ -115,19 +115,4 @@
 
 @section('scripts')
     @include('partials.ajax')
-    <script>
-        $(document).ready(function () {
-            $('#checkall').click(function () {
-                $('#email-list').find('input:checkbox').prop('checked', true);
-                $('#check-square').removeClass('fa-square-o').addClass('fa-check-square-o');
-            });
-        });
-        $(document).ready(function () {
-            $('#uncheckall').click(function () {
-                $('#email-list').find('input:checkbox').prop('checked', false);
-                $('#check-square').removeClass('fa-check-circle-o').addClass('fa-square-o');
-            });
-        })
-    </script>
-
 @endsection

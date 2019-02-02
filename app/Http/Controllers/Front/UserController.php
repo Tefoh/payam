@@ -7,16 +7,34 @@ use App\Qasedak\File\File;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\UserEditRequest;
+use App\Qasedak\User\Repositories\Interfaces\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+
+    /**
+     * @var UserRepositoryInterface
+     */
+    private $userRepo;
+
+
+    /**
+     * UserController constructor.
+     */
+    public function __construct(UserRepositoryInterface $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
+
     /**
      * @param User $user
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(User $user)
     {
-        return view('profile',compact('user'));
+        $this->authorize('update', $user);
+        return $this->userRepo->editUser($user);
     }
 
     /**
@@ -26,26 +44,9 @@ class UserController extends Controller
      */
     public function update(UserEditRequest $request, User $user)
     {
-        if(trim($request->password) == ''){
-            $input = $request->except('password');
-        } else {
-            $input = $request->all();
-            $input['password'] = bcrypt($request->password);
-        }
-
-        if($file = $request->file('profile_photo')){
-            $name = time() . $file->getClientOriginalName();
-            $file->move('images', $name);
-            File::create([
-                'message_id'=>Auth::id(),
-                'path'=>$name
-            ]);
-            $input['profile_photo'] = $name;
-        }
-        $user->update($input);
-
+        $this->authorize('update', $user);
+        $this->userRepo->updateUser($request, $user);
         return redirect('/home');
-
     }
 
 
@@ -56,7 +57,11 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $this->authorize('forceDelete', $user);
+        $this->userRepo->destroyUser($user);
+        if (Auth::user()->hasRole('superAdmin')) {
+            redirect('manage');
+        }
         return redirect('login');
     }
 }

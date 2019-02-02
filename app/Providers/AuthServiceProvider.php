@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Qasedak\File\File;
 use App\User;
 use App\Qasedak\Message\Message;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
 //        'App\Model' => 'App\Policies\ModelPolicy',
         Message::class => 'App\Policies\MessagePolicy',
+        User::class => 'App\Policies\UserPolicy',
+        File::class => 'App\Policies\FileAccessPolicy',
     ];
 
     /**

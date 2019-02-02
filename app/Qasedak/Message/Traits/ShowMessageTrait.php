@@ -2,10 +2,10 @@
 namespace App\Qasedak\Message\Traits;
 
 
-use App\Qasedak\Message\Exceptions\MessageNotFoundException;
 use App\Qasedak\Message\Message;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Qasedak\Message\Exceptions\MessageNotFoundException;
 
 trait ShowMessageTrait
 {

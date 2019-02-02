@@ -61,7 +61,7 @@ class MessageHomeController extends Controller
 
     public function store (MessageStoreRequest $request)
     {
-        if (!$this->messageRepo->createMessageByUsers($request)) {
+        if ( ! $this->messageRepo->createMessageByUsers($request)) {
             return redirect()->back();
         }
         return redirect('home');

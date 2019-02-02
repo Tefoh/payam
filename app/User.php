@@ -2,12 +2,16 @@
 
 namespace App;
 
+use App\Qasedak\Message\Message;
+use Hekmatinasser\Verta\Verta;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
+    use HasRoles;
     use Notifiable;
 
     /**
@@ -29,7 +33,11 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     public function messages() {
-        return $this->hasMany('App\Message');
+        return $this->hasMany(Message::class);
+    }
+
+    public function authorMessages() {
+        return $this->hasMany(Message::class,'author');
     }
 
     // Rest omitted for brevity
@@ -54,4 +62,12 @@ class User extends Authenticatable implements JWTSubject
         return [];
     }
 
+    /**
+     * @return string
+     */
+    public function time() {
+        $time =  $this->created_at;
+        $v = Verta::instance($time);
+        return $v->format('%B %d، %Y');
+    }
 }

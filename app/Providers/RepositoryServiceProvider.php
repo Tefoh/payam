@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Qasedak\Message\Repositories\Interfaces\ManageRepositoryInterface;
+use App\Qasedak\Message\Repositories\ManageRepository;
+use App\Qasedak\User\Repositories\Interfaces\UserRepositoryInterface;
+use App\Qasedak\User\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Qasedak\Api\Repositories\ApiRepository;
 use App\Qasedak\Api\Repositories\Interfaces\ApiRepositoryInterface;
@@ -39,6 +43,16 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(
             FileRepositoryInterface::class,
             FileRepository::class
+        );
+
+        $this->app->bind(
+            ManageRepositoryInterface::class,
+            ManageRepository::class
+        );
+
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            UserRepository::class
         );
     }
 }

@@ -1785,7 +1785,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   // OR register locally
@@ -37475,7 +37474,6 @@ var render = function() {
           attrs: {
             options: _vm.option,
             multiple: true,
-            id: "username",
             autofocus: "",
             placeholder: "نام ها را وارد کنید",
             selectLabel: "برای انتخاب کلیک کنید",
@@ -37499,7 +37497,7 @@ var render = function() {
       _vm._v(" "),
       _c("input", {
         attrs: { type: "hidden", name: "username" },
-        domProps: { value: _vm.value }
+        domProps: { value: _vm.selected }
       })
     ],
     1
@@ -52756,7 +52754,7 @@ $(document).ready(function () {
 *===================================*/
 
 $(".toggle-password").on('click', function () {
-  $(this).toggleClass("fa-eye-disabled");
+  $(this).toggleClass("fa-eye-slash");
   var input = $($(this).attr("data-toggle"));
 
   if (input.attr("type") == "password") {
@@ -52764,6 +52762,22 @@ $(".toggle-password").on('click', function () {
   } else {
     input.attr("type", "password");
   }
+});
+/*===================================*
+ check or uncheck all of checkboxes
+*===================================*/
+
+$(document).ready(function () {
+  $('#checkall').click(function () {
+    $('#email-list').find('input:checkbox').prop('checked', true);
+    $('#check-square').removeClass('fa-square-o').addClass('fa-check-square-o');
+  });
+});
+$(document).ready(function () {
+  $('#uncheckall').click(function () {
+    $('#email-list').find('input:checkbox').prop('checked', false);
+    $('#check-square').removeClass('fa-check-circle-o').addClass('fa-square-o');
+  });
 });
 
 /***/ }),

@@ -14,25 +14,15 @@
         <div class="wrap-input100 validate-input" data-validate="نام کاربری خود را وارد کنید.">
             <input id="username" type="text" class="input100" name="username" placeholder="نام کاربری"
                    value="{{ old('username') }}" required autofocus>
-            @if ($errors->has('username'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('username') }}</strong>
-                </span>
-            @endif
             <span class="focus-input100"></span>
             <span class="symbol-input100">
                 <i class="fa fa-envelope" aria-hidden="true"></i>
             </span>
         </div>
 
-        <div class="wrap-input100 validate-input" data-validate="Password is required">
+        <div class="wrap-input100 validate-input" data-validate="رمز عبور خود را وارد کنید.">
             <input id="password" type="password" class="input100" name="password" placeholder="رمز عبور" required>
 
-            @if ($errors->has('password'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                </span>
-            @endif
             <span class="focus-input100"></span>
             <span class="symbol-input100">
                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -54,6 +44,16 @@
                 حساب کاربری جدید بسازید
             </a>
         </div>
+        @if ($errors->has('username'))
+            <span class="help-block alert alert-danger">
+                    <strong>{{ $errors->first('username') }}</strong>
+                </span>
+        @endif
+        @if ($errors->has('password'))
+            <span class="help-block alert alert-danger">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+        @endif
 
     </form>
 @endsection
